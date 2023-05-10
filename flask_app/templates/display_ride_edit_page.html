@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Create a Show</title>
+
+</head>
+<body data-bs-theme="dark">
+    <div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/display/ikon/mountains">Ikon Mountains</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/user_dashboard" style="color: lightskyblue; font-size: larger;">Back to My Rides</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log out</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                </ul>
+                <form action= "/display/mountain/by_search" method = 'post' class="d-flex">
+                    <input class="form-control me-2" placeholder="Search Mountain" aria-label="Search" id="txt-black" name = "mountain_name">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                </div>
+            </div>
+        </nav>
+        <div class="text-centered">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <p class=flashes style="color: red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="form-box">
+            <form action="/rides/{{this_ride.id}}/update" method="post">
+                <div class="form-outline mb-4">
+                    <p><label>Destination: </label></p>
+                    <p><select name="destination" value= "{{this_ride.destination}}" class="form-select" id="txt-black">
+                        <option value="mammoth">Mammoth</option>
+                        <option value="brighton">Brighton</option>
+                        <option value="aspen">Aspen</option>
+                        <option value="jackson_hole">Jackson Hole</option>
+                    </select></p>
+                </div>
+                <div class="form-outline mb-4">
+                    <p><label>Trail Name:</label></p>
+                    <p><input type="text" name="trail_name" value="{{this_ride.trail_name}}" class="form-control" id="txt-black"></p>
+                </div>
+                <div class="form-outline mb-4">
+                    <p><label>Trail Review:</label></p>
+                    <p><textarea name="ride_exp" cols="20" rows="4" class="form-control" id="txt-black">{{this_ride.ride_exp}}</textarea></p>
+                </div>
+                <div class="form-outline mb-4">
+                    <p><label>Difficulty: </label></p>
+                    <p><input type="radio" name="difficulty" value="1" checked="1"> Beginner 
+                    <input type="radio" name="difficulty" value="2"> Intermediate <br> 
+                    <input type="radio" name="difficulty" value="3"> Expert </p>
+                </div>
+                <hr>
+                <div class="form-outline mb-4">
+                    <p><label>Equipment: </label></p>
+                    <p><input type="radio" name="equipment" value="1" checked="1"> Snowboard 
+                    <input type="radio" name="equipment" value="2"> Skiis 
+                </div>
+                <!-- Submit button -->
+                <button class="btn btn-primary btn-block mb-4">Update your ride!</button>
+                <br>
+                <br>
+                
+                <a href="/delete/{{this_ride.id}}">Delete this ride!</a>
+            </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

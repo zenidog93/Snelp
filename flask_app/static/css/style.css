@@ -1,0 +1,99 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+a{
+    text-decoration: none;
+}
+li{
+    text-decoration: none;
+    list-style-type: none;
+    text-indent: 20px;
+}
+.ikon-bg-pic{
+    background-color:yellow;
+}
+.main-container{
+    margin: 0px auto;
+}
+
+/* HOME PAGE */
+.flexed-hm-wrapper{
+    display: flex;
+}
+.column-wrapper{
+    height:800px;
+    width: 33%;
+    background-color: blue;
+}
+
+
+/* IKON MAIN PAGE */
+.body-wrapper{
+    text-align: center;
+}
+.box{
+    display: flex;
+    justify-content: center;
+}
+
+.signin_box{
+    width: 30%;
+    text-align: center;
+    margin: 0px auto;
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.form-box{
+    width: 30%;
+    text-align: center;
+    margin: 0px auto;
+}
+#txt-black{
+    color: black;
+}
+
+.ikon-container{
+    display: flex;
+    align-items: center;
+    margin: 50px;
+}
+
+.ikon-left-side{
+    width: 50%;
+    height: 700px;
+}
+.ikon-right-side{
+    width: 50%;
+}
+thead{
+    color: lightskyblue;
+    font-size: larger;
+}
+
+.text-centered{
+    text-align: center;
+}
+label{
+    color: lightskyblue
+}
+
+#dash-color{
+    color: lightskyblue; 
+    font-size: larger;
+}
+
+tbody {
+    display:block;
+    height:200px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+thead {
+    
+}

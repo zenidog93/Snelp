@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+    <style>
+        #map{
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+
+    <title>My Dashboard</title>
+</head>
+<body data-bs-theme="dark">
+    <div class="main-wrapper">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary set-position" >
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/display/ikon/mountains">Ikon Mountains</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/display/create/ride/form" style="color: lightskyblue; font-size: larger;"><strong>Add a Ride!</strong></a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log out</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                </ul>
+                <form action= "/display/mountain/by_search" method = 'post' class="d-flex">
+                    <input class="form-control me-2" placeholder="Search Mountain" aria-label="Search" id="txt-black" name = "mountain_name">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                </div>
+            </div>
+        </nav>
+        <div class="body-container">
+            <div class="banner">
+                <h1> My Rides</h1>
+            </div>
+            <div id="map" class="set-position">
+
+            </div>
+            <div >
+                <div class="table-scroll">
+                    <table class="table table-hover" style="text-align: center;">
+                        <thead>
+                            <tr class="set-position">
+                                <td>Destination</td>
+                                <td>Trail</td>
+                                <td>Difficulty</td>
+                                <td>Riding On</td>
+                                <td>Date</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for one_ride in this_user.rides%}
+                            <tr>
+                                <td>{{one_ride.destination.replace("_", " ").title()}}</td>
+                                <td>{{one_ride.trail_name}}</td>
+                                {%if one_ride.difficulty == 1%}
+                                <td>Beginner</td>
+                                {% endif%}
+                                {%if one_ride.difficulty == 2%}
+                                <td>Intermediate</td>
+                                {% endif%}
+                                {%if one_ride.difficulty == 3%}
+                                <td>Expert</td>
+                                {% endif%}
+                                {%if one_ride.equipment == 1%}
+                                <td>Snowboard</td>
+                                {% endif%}
+                                {%if one_ride.equipment == 2%}
+                                <td>Skiis</td>
+                                {% endif%}
+                                <td>{{one_ride.created_at.strftime("%B")}}, {{one_ride.created_at.strftime("%d")}}, {{one_ride.created_at.strftime("%Y")}}</td>
+                                <td>
+                                    <a href="/ride/edit/{{one_ride.id}}"><button class="btn btn-primary">Edit</button></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <script>
+39.83222775874572, -101.076
+        function initMap() {
+  // The location of Uluru
+        const usa = { lat: 39.832, lng: -101.076 };
+        const brighton = {lat:40.599, lng:-111.581};
+        const mammoth = {lat: 37.651, lng:-119.026};
+        const jacksonHole = {lat: 43.588, lng: -110.825};
+        const aspen_snowmass = {lat:39.211, lng: -106.942}
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 5,
+            center: usa,
+        });
+        const marker1 = new google.maps.Marker({position :brighton, map:map, })
+        const marker2 = new google.maps.Marker({position :mammoth, map:map, })
+        const marker3 = new google.maps.Marker({position :jacksonHole, map:map, })
+        const marker4 = new google.maps.Marker({position :aspen_snowmass, map:map, })
+
+    }
+    window.initMap = initMap;
+    </script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrRuGFWz3cmUVdmT2Mo6f0qqy8SXKr2bA&callback=initMap">
+</script>
+    
+</body>
+</html>
